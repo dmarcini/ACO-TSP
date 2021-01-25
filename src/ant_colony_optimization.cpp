@@ -10,8 +10,7 @@
 #include "params.hpp"
 
 
-void AntColonyOptimization::load_data(const std::string &path,
-                                      LoadDataFcntPtr load_data)
+void ACO::load_data(const std::string &path, LoadDataFcntPtr load_data)
 {
     graph_.load(load_data(path));
 
@@ -21,13 +20,13 @@ void AntColonyOptimization::load_data(const std::string &path,
 }
 
 
-void AntColonyOptimization::enter_stop_criterium()
+void ACO::enter_stop_criterium()
 {
     Params::iterations_number = get_int_parameter("iterations number");
 }
 
 
-void AntColonyOptimization::enter_algorithm_parameters()
+void ACO::enter_algorithm_parameters()
 {
     Params::tau0 = get_double_parameter("initial concentration of pheromones");
     Params::rho = get_double_parameter("pheromones evaporation factor");
@@ -45,7 +44,7 @@ void AntColonyOptimization::enter_algorithm_parameters()
 }
 
 
-void AntColonyOptimization::start()
+void ACO::start()
 {
     for (int i {0}; i < Params::iterations_number; ++i) {
         do_iteration();
@@ -56,7 +55,7 @@ void AntColonyOptimization::start()
 }
 
 
-void AntColonyOptimization::do_iteration()
+void ACO::do_iteration()
 {
     for (auto &ant : ants_) {
         ant.do_cycle();
@@ -64,7 +63,7 @@ void AntColonyOptimization::do_iteration()
 }
 
 
-void AntColonyOptimization::update_initial_pheromones_concentration()
+void ACO::update_initial_pheromones_concentration()
 {
     for (size_t i {0}; i < graph_.size(); ++i) {
         for (size_t j {0}; j < graph_.size(); ++j) {
@@ -74,7 +73,7 @@ void AntColonyOptimization::update_initial_pheromones_concentration()
 }
 
 
-void AntColonyOptimization::update_pheromones_concentration()
+void ACO::update_pheromones_concentration()
 {
     for (size_t i {0}; i < graph_.size() - 1; ++i) {
         graph_.edge(i, i + 1).update_pheromones_concentration(Params::rho);
@@ -82,7 +81,7 @@ void AntColonyOptimization::update_pheromones_concentration()
 }
 
 
-double AntColonyOptimization::get_double_parameter(std::string_view parameter)
+double ACO::get_double_parameter(std::string_view parameter)
 {
     utility::Scanner scanner(std::cin);
 
@@ -97,7 +96,7 @@ double AntColonyOptimization::get_double_parameter(std::string_view parameter)
 }
 
 
-int AntColonyOptimization::get_int_parameter(std::string_view parameter)
+int ACO::get_int_parameter(std::string_view parameter)
 {
     utility::Scanner scanner(std::cin);
 

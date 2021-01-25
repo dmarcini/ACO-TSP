@@ -9,6 +9,8 @@
 #include "ant.hpp"
 
 
+using ACO = class AntColonyOptimization;
+
 class AntColonyOptimization
 {
 public:
