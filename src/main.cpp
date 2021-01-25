@@ -6,6 +6,7 @@
 
 #include "menu.hpp"
 #include "graph.hpp"
+#include "ant.hpp"
 
 
 std::vector<std::vector<int>> load_data(const std::string &path)
