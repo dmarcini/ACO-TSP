@@ -2,8 +2,10 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <utility>
 
 #include "menu.hpp"
+#include "graph.hpp"
 
 
 std::vector<std::vector<int>> load_data(const std::string &path)
@@ -14,17 +16,15 @@ std::vector<std::vector<int>> load_data(const std::string &path)
 
     ifs >> size;
 
-    matrix.resize(size);
-
     for (int i {0}; i < size; ++i) {
-        matrix[i].resize(size);
+        matrix.push_back({});
 
         for (int j {0}; j < size; ++j) {
-            std::string element {};
+            int value;
 
-            ifs >> element;
+            ifs >> value;
 
-            matrix[i][j] = std::stoi(element);         
+            matrix[i].push_back(value);         
         }
     }
 
@@ -35,9 +35,12 @@ int main() {
     utility::Menu menu("\nTraveling Salesman Problem - Ant Colony Optimization");
 
     bool was_data_loaded {false};
+    Graph graph;
 
-    menu.append({"Load data", [&was_data_loaded]() {
+    menu.append({"Load data", [&graph, &was_data_loaded]() { 
+        graph.load(load_data("graphs/ftv47.atsp"));
         
+        was_data_loaded = true;
     }});
     menu.append({"Enter stop criterium", []() {
         
