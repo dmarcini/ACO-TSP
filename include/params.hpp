@@ -5,6 +5,8 @@
 class Params
 {
 public:
+    static int iterations_number;
+
     // pheromones evaporation factor
     static double rho;
     // parameter regulating the influence of pheromone

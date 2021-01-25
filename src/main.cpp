@@ -5,8 +5,8 @@
 #include <utility>
 
 #include "menu.hpp"
-#include "graph.hpp"
-#include "ant.hpp"
+
+#include "ant_colony_optimization.hpp"
 
 
 std::vector<std::vector<int>> load_data(const std::string &path)
@@ -33,27 +33,31 @@ std::vector<std::vector<int>> load_data(const std::string &path)
 }
 
 int main() {
-    utility::Menu menu("\nTraveling Salesman Problem - Ant Colony Optimization");
+    AntColonyOptimization aco;
+
+    utility::Menu menu("\nTraveling Salesman Problem - "
+                       "Ant Colony Optimization");
 
     bool was_data_loaded {false};
-    Graph graph;
 
-    menu.append({"Load data", [&graph, &was_data_loaded]() { 
-        graph.load(load_data("graphs/ftv47.atsp"));
+    menu.append({"Load data", [&aco, &was_data_loaded]() { 
+        aco.load_data("graphs/ftv47.atsp", load_data);
         
         was_data_loaded = true;
     }});
-    menu.append({"Enter stop criterium", []() {
-        
+    menu.append({"Enter stop criterium", [&aco]() {
+        aco.enter_stop_criterium();
     }});
-    menu.append({"Enter algorithm parameters", []() {
-        
+    menu.append({"Enter algorithm parameters", [&aco]() {
+        aco.enter_algorithm_parameters();
     }});
-    menu.append({"Start", [&was_data_loaded]() {
+    menu.append({"Start", [&aco, &was_data_loaded]() {
         if (!was_data_loaded) {
             std::cout << "\nFirst load data!\n";
             return;
         }
+
+        aco.start();
     }});
 
     menu.show();
