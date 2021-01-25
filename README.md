@@ -11,10 +11,10 @@ https://en.wikipedia.org/wiki/Travelling_salesman_problem
 
 The application's menu consists of 4 options:
 * load a data from the external file (you should provide your own function
-  (overwrite a body of load_data(path, matrix) function)
-  to read the data from this file and write them in math::Matrix object)
+  (overwrite a body of <strong>load_data</strong> function)
+  to read the data from this file)
 * enter stop criterium (in number of iterations)
-* enter algorithm paramters like: <br>
+* enter algorithm parameters like: <br>
   -- tau0 (initial concentration of pheromones) <br>
   -- rho (pheromones evaporation factor) <br>
   -- q (number of pheromones spread over 1 edge) <br>
@@ -66,3 +66,6 @@ make
 cd path-to-clone-directory/bin
 ./ACO-TSP
 ```
+For other systems you should update library path to place where
+library has been installed, by edit target_link_libraries()
+in CMakeLists.txt.
