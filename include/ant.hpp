@@ -11,7 +11,7 @@ class Ant
 public:
     Ant(Graph &graph);
 
-    std::vector<int> visited_cities() { return visited_cities_; }
+    std::vector<int> route() { return route_; }
 
     void do_cycle();
 private:
@@ -26,11 +26,11 @@ private:
     double count_probability_denumerator();
 
     Graph &graph_;
-    std::vector<int> visited_cities_;
+    std::vector<int> route_;
 
     int start_city_;
     int last_city_;
-    int current_path_;
+    int current_path_length_;
 };
 
 #endif // ANT_HPP_

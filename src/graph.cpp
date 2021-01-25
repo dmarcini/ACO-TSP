@@ -15,7 +15,7 @@ void Graph::load(const std::vector<std::vector<int>> &matrix)
             edges_[i].push_back(Edge(matrix[i][j], Params::tau0));
         }
 
-        path_.push_back(i);
+        path_.route().push_back(i);
     }
 }
 
@@ -23,11 +23,11 @@ void Graph::load(const std::vector<std::vector<int>> &matrix)
 void Graph::print_path()
 {
     std::cout << "Visited cities:\n";
-    std::cout << path_[0];
+    std::cout << path_.route()[0];
 
-    for (size_t i {1}; i < path_.size(); ++i) {
-        std::cout << " -> " << path_[i];
+    for (size_t i {1}; i < path_.route().size(); ++i) {
+        std::cout << " -> " << path_.route()[i];
     }
 
-    std::cout << "\nPath length: " << path_length_ << "\n\n";
+    std::cout << "\nPath length: " << path_.length() << "\n\n";
 }

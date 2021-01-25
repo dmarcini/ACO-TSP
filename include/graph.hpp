@@ -5,6 +5,8 @@
 #include <iostream>
 #include <limits>
 
+#include "path.hpp"
+
 
 class Graph
 {
@@ -15,17 +17,15 @@ public:
 
     size_t size() { return edges_.size(); }
 
-    std::vector<int>& path() { return path_; }
-    int& path_length() { return path_length_; }
+    Path& path() { return path_; }
 
     Edge& edge(size_t x, size_t y) { return edges_[x][y]; }
 
     void print_path();
 private:
     std::vector<std::vector<Edge>> edges_;
-    std::vector<int> path_;
 
-    int path_length_ {std::numeric_limits<int>::max()};
+    Path path_;
 };
 
 

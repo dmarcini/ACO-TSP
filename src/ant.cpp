@@ -28,25 +28,25 @@ void Ant::next_city()
     int city = get_next_city();
     int distance = graph_.edge(last_city_, city).distance();
 
-    visited_cities_.push_back(city);
+    route_.push_back(city);
 
     graph_.edge(last_city_, city).pheromones_concentration() += 
         Params::q / distance;
 
-    current_path_ += distance;
+    current_path_length_ += distance;
     last_city_ = city;
 
-    if (visited_cities_.size() != graph_.size()) {
+    if (route_.size() != graph_.size()) {
         return;
     }
 
-    current_path_ += graph_.edge(last_city_, start_city_).distance();
+    current_path_length_ += graph_.edge(last_city_, start_city_).distance();
 
-    visited_cities_.push_back(start_city_);
+    route_.push_back(start_city_);
 
-    if (graph_.path_length() > current_path_) {
-        graph_.path_length() = current_path_;
-        graph_.path() = visited_cities_;
+    if (graph_.path().length() > current_path_length_) {
+        graph_.path().length() = current_path_length_;
+        graph_.path().route() = route_;
     }
 
     clear_cycle();
@@ -58,7 +58,7 @@ int Ant::get_next_city()
     // probibility of choosing of the city;
     double p {0.};
 
-    for (auto cur_city : graph_.path()) {
+    for (auto cur_city : graph_.path().route()) {
         if (was_city_visited(cur_city)) {
             continue;
         }
@@ -99,7 +99,7 @@ double Ant::count_probability_denumerator()
 {
     double denumerator {0.};
 
-    for (auto city : graph_.path()) {
+    for (auto city : graph_.path().route()) {
         if (was_city_visited(city)) {
             continue;
         }
@@ -117,18 +117,18 @@ double Ant::count_probability_denumerator()
 
 void Ant::clear_cycle()
 {
-    current_path_ = 0;
+    current_path_length_ = 0;
     start_city_ = utility::rand(0, graph_.size() - 1);
     last_city_ = start_city_;
-    visited_cities_.clear();
+    route_.clear();
 
-    visited_cities_.push_back(last_city_);
+    route_.push_back(last_city_);
 }
 
 
 bool Ant::was_city_visited(int city)
 {
-    for (auto visited_city : visited_cities_) {
+    for (auto visited_city : route_) {
         if (city == visited_city) {
             return true;
         }
