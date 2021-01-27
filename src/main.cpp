@@ -29,6 +29,11 @@ std::vector<std::vector<int>> load_data(const std::string &path)
         }
     }
 
+    if (matrix.empty()) {
+        std::cout << "Invalid file path!\n";
+        std::exit(-1);
+    }
+
     return matrix;
 }
 
@@ -41,7 +46,7 @@ int main() {
     bool was_data_loaded {false};
 
     menu.append({"Load data", [&aco, &was_data_loaded]() { 
-        aco.load_data("graphs/ftv47.atsp", load_data);
+        aco.load_data(load_data);
         
         was_data_loaded = true;
     }});

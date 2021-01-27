@@ -22,7 +22,7 @@ void Graph::load(const std::vector<std::vector<int>> &matrix)
 
 void Graph::print_path()
 {
-    std::cout << "Visited cities:\n";
+    std::cout << "\nVisited cities:\n";
     std::cout << path_.route()[0];
 
     for (size_t i {1}; i < path_.route().size(); ++i) {

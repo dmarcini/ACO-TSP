@@ -10,9 +10,17 @@
 #include "params.hpp"
 
 
-void ACO::load_data(const std::string &path, LoadDataFcntPtr load_data)
+void ACO::load_data(LoadDataFcntPtr load_data)
 {
-    graph_.load(load_data(path));
+    utility::Scanner scanner(std::cin);
+
+    std::cout << "\nEnter graph path: ";
+
+    while (!scanner.has_next()) {
+        std::cout << "\nEnter graph path: ";
+    }
+
+    graph_.load(load_data(scanner.next()));
 
     for (size_t i {0}; i < graph_.size(); ++i) {
         ants_.push_back(Ant(graph_));
@@ -85,11 +93,11 @@ double ACO::get_double_parameter(std::string_view parameter)
 {
     utility::Scanner scanner(std::cin);
 
-    std::cout << "Enter " << parameter << ": ";
+    std::cout << "\nEnter " << parameter << ": ";
 
     while (!scanner.has_next_double()) {
         std::cout << parameter << " have to be double!\n";
-        std::cout << "Enter " << parameter << ": ";
+        std::cout << "\nEnter " << parameter << ": ";
     }
 
     return scanner.next_double();
@@ -100,11 +108,11 @@ int ACO::get_int_parameter(std::string_view parameter)
 {
     utility::Scanner scanner(std::cin);
 
-    std::cout << "Enter " << parameter << ": ";
+    std::cout << "\nEnter " << parameter << ": ";
 
     while (!scanner.has_next_int()) {
         std::cout << parameter << " have to be integer!\n";
-        std::cout << "Enter " << parameter << ": ";
+        std::cout << "\nEnter " << parameter << ": ";
     }
 
     return scanner.next_int();

@@ -17,7 +17,7 @@ public:
     using LoadDataFcntPtr = 
         std::function<std::vector<std::vector<int>>(const std::string&)>;
 
-    void load_data(const std::string &path, LoadDataFcntPtr load_data);
+    void load_data(LoadDataFcntPtr load_data);
 
     void enter_stop_criterium();
     void enter_algorithm_parameters();
